@@ -1,0 +1,34 @@
+use log::{info,warn,error};
+use env_logger;
+use std::io;
+use rpassword::read_password;
+
+fn main() {
+//iniciar el logger
+env_logger::init();
+
+let username  = "admin";
+let password = "password123";
+
+//InternetIdentity de usuario
+println!("ingrese su internetIdentity:");
+let mut input_username = String::new();
+io::stdin().read_line(&mut input_username).expect("Error al ingeresar el InternetIdentity");
+let input_username = input_username.trim();
+
+// pedir contraseña
+println!("Ingresa tu Contraseñaa");
+let input_password = read_password().expect("Error al leer contraseña");
+
+//verificar las credenciales
+if input_username == username && input_password == password{
+    info!("Usuario {} inicio sesion correctamente",input_username);
+    println!("Inicio de sesion exitoso!");
+}
+    else{
+        error!("Fallo en el inicio de sesion para el usuario {}.",input_username);
+        println!("InternetIdentity o contraseña incorrecta");
+    }
+
+
+}
